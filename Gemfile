@@ -7,10 +7,10 @@ gem 'jquery-rails'
 gem 'turbolinks'
 gem 'jbuilder', '~> 1.2'
 gem 'bootstrap-sass', :git => 'https://github.com/thomas-mcdonald/bootstrap-sass'
-# gem 'devise'
 gem 'protected_attributes'
 gem 'paperclip', '~> 3.0'
 gem 'aws-sdk'
+gem 'nested_form'
 
 group :doc do
   gem 'sdoc', require: false
@@ -30,5 +30,6 @@ group :test do
   gem 'capybara'
   gem 'factory_girl_rails'
   gem 'shoulda-matchers'
-  # gem 'launchy'
+  gem 'poltergeist'
+  gem 'launchy'
 end

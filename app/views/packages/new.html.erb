@@ -1,0 +1,37 @@
+<%= nested_form_for @package do |f| %>
+  <h2>Create a new package of files</h2>
+  <hr>
+  
+  <div class='form-group'>
+    <%= f.label :user_email, 'Email' %>
+    <%= f.text_field :user_email, class: "form-control" %>
+  </div>
+
+  <div class='form-group'>
+    <%= f.label :user_name, 'Name' %>
+    <%= f.text_field :user_name, class: "form-control" %>
+  </div>
+
+  <div class='form-group'>
+    <%= f.label :message %><br>
+    <%= f.text_field :message, class: "form-control" %>
+  </div>
+
+  <%= f.fields_for :recipients do |recipient_form| %>
+    <%= recipient_form.label :email, 'Recipient Email' %>
+    <%= recipient_form.text_field :email %>
+    <%= recipient_form.link_to_remove "Remove this recipient" %>
+  <% end %>
+  <p><%= f.link_to_add "Add a recipient", :recipients %></p>
+  
+  <%= f.fields_for :attachments do |attachment_form| %>
+    <%= attachment_form.label :file, 'Attach File' %>
+    <%= attachment_form.file_field :file %>
+    <%= attachment_form.link_to_remove "Remove this attachment" %>
+  <% end %>
+  <p><%= f.link_to_add "Add an attachment", :attachments %></p>
+
+  <div>
+    <%= f.submit 'submit', class: 'btn btn-default' %>
+  </div>
+<% end %>
