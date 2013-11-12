@@ -4,4 +4,6 @@ class Package < ActiveRecord::Base
   has_many :attachments
 
   validates :message, presence: true
+  validates :recipients, presence: true
+  validates :encrypted_token, presence: true
 end

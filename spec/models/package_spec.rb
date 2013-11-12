@@ -6,4 +6,6 @@ describe Package do
   it { should have_many :attachments }
 
   it { should validate_presence_of :message }
+  it { should validate_presence_of :recipients }
+  it { should validate_presence_of :encrypted_token }
 end
