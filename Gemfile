@@ -10,6 +10,7 @@ gem 'bootstrap-sass', :git => 'https://github.com/thomas-mcdonald/bootstrap-sass
 # gem 'devise'
 gem 'protected_attributes'
 gem 'paperclip', '~> 3.0'
+gem 'aws-sdk'
 
 group :doc do
   gem 'sdoc', require: false
