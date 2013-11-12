@@ -7,8 +7,29 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+  <%= render 'shared/navbar' %>
+  <div class="container">
+    <% if flash[:notice] %>
+      <div class="alert alert-info">
+        <%= flash[:notice] %>
+      </div>
+    <% end %>
 
-<%= yield %>
+    <% if flash[:alert] %>
+      <div class="alert alert-danger">
+        <%= flash[:alert] %>
+      </div>
+    <% end %>
 
+    <%= yield %>
+
+    <footer>
+      <p class="fixed-bottom">©
+        <a href="mailto:bgoguinn@gmail.com">Braden O'Guinn</a>
+         / 
+        <a href="#" target="_blank">our privacy policy</a>
+      </p>
+    </footer>
+  </div>
 </body>
 </html>

@@ -10,12 +10,14 @@ FactoryGirl.define do
     email 'jd@example.com'
   end
 
-  factory :img_attachment do
-    file { fixture_file_upload(Rails.root.join('spec', 'photos', 'test.png'), 'image/png') }
-  end
+  factory :attachment do
+    factory :img_attachment do
+      file { fixture_file_upload(Rails.root.join('spec', 'photos', 'test.png'), 'image/png') }
+    end
 
-  factory :txt_attachment do
-    file { fixture_file_upload(Rails.root.join('spec', 'texts', 'test.rtf'), 'image/png') }
+    factory :txt_attachment do
+      file { fixture_file_upload(Rails.root.join('spec', 'texts', 'test.rtf'), 'text/rtf') }
+    end
   end
 
   factory :recipient do
