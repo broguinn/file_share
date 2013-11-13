@@ -52,9 +52,6 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
-    capybara-email (2.2.0)
-      capybara (~> 2.1.0)
-      mail
     climate_control (0.0.3)
       activesupport (>= 3.0)
     cliver (0.2.2)
@@ -196,13 +193,13 @@ DEPENDENCIES
   binding_of_caller
   bootstrap-sass!
   capybara
-  capybara-email
   cocoon
   database_cleaner
   factory_girl_rails
   jbuilder (~> 1.2)
   jquery-rails
   launchy
+  mail
   paperclip (~> 3.0)
   pg
   poltergeist

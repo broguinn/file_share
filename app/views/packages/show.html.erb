@@ -1,0 +1,13 @@
+<h2>Your Package</h2>
+<hr>
+
+<div class='row>'>
+  <% @package.attachments.each do |attachment| %>
+    <div class='col-md-4'>
+      <h5><%= attachment.file_file_name %></h5>
+      <hr>
+      <p>size: <%= attachment.file_file_size %></p>
+      <p>type: <%= attachment.file_content_type %></p>
+    </div>
+  <% end %>
+</div>

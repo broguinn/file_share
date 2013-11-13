@@ -12,9 +12,17 @@ describe Package do
   describe '#authenticate' do
     it 'returns true if the remember token passed in matches the encrypted token in the DB' do
       @token = 'foobars'
-      @package = FactoryGirl.build(:package)
+      @package = FactoryGirl.create(:package)
       @package.encrypted_token = BCrypt::Password.create(@token)
       @package.authenticate(@token).should be_true
     end
   end
+
+  # describe '#link' do
+  #   it 'returns a url to the package with the unencrypted token in params' do
+  #     @token = 'foobars'
+  #     @package = FactoryGirl.create(:package)
+  #     @package.link(@token).should eq link_to({ token: @token })
+  #   end
+  # end
 end

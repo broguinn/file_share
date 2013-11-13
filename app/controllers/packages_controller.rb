@@ -13,6 +13,14 @@ class PackagesController < ApplicationController
     end
   end
 
+  def show
+    @package = Package.find(params[:id])
+    unless @package.authenticate(params[:token])
+      flash[:alert] = 'Access denied'
+      redirect_to home_path
+    end
+  end
+
 private
 
   def package_params

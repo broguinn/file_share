@@ -1,12 +1,9 @@
 class PackageMailer < ActionMailer::Base
   default from: "from@example.com"
 
-  def sender_email(package, token)
-    @user = package.user_email
-    @url = 
-  end
-
   def recipient_email(package, token)
-
+    @package = package
+    @token = token
+    mail(to: package.recipient_email, subject: 'Your File Share Package is Ready')
   end
 end
