@@ -22,6 +22,10 @@ class Package < ActiveRecord::Base
     BCrypt::Password.new(encrypted_token) == token
   end
 
+  def hours_left
+    72 - ((Time.now - created_at) / 1.hour).round
+  end
+
 private
 
   def validate_attachments

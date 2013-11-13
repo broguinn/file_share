@@ -8,10 +8,13 @@ feature 'PackageMailer' do
     @package = FactoryGirl.build(:package)
     @token = SecureRandom.base64
     @package.encrypted_token = BCrypt::Password.create(@token)
-    PackageMailer.recipient_email(@package, @token).deliver
   end
 
   context 'recipient receives an email' do
+    before do
+      PackageMailer.recipient_email(@package, @token).deliver
+    end
+
     scenario 'an email is sent' do
       ActionMailer::Base.deliveries.count.should eq 1
     end
@@ -45,10 +48,35 @@ feature 'PackageMailer' do
     end
   end
 
+  context 'sender receives an email' do
+    before do
+      PackageMailer.sender_email(@package).deliver
+    end
+
+    scenario 'an email is sent' do
+      ActionMailer::Base.deliveries.count.should eq 1
+    end
+
+    scenario 'it sends to the right email' do
+      ActionMailer::Base.deliveries.first.to.should eq [@package.user_email]
+    end
+
+    scenario 'it gives the right subject line' do
+      ActionMailer::Base.deliveries.first.subject.should eq 'Your Files Were Accessed'
+    end
+
+    scenario 'Email gives confirmation' do
+      first_delivery = ActionMailer::Base.deliveries.first
+      first_delivery.body.raw_source.should have_content "The recipient has downloaded the files"
+    end
+
+    scenario 'Email includes info on how long until the package is removed' do
+      first_delivery = ActionMailer::Base.deliveries.first
+      first_delivery.body.raw_source.should have_content "The package will be removed in "      
+    end
+  end
+
   after do
     ActionMailer::Base.deliveries.clear
   end
 end
-
-
- "along with the personalized message and that he has 72 hours to access it."

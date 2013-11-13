@@ -6,4 +6,8 @@ class PackageMailer < ActionMailer::Base
     @token = token
     mail(to: package.recipient_email, subject: 'Your File Share Package is Ready')
   end
+
+  def sender_email(package)
+    @package = package
+  end
 end

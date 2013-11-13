@@ -18,11 +18,10 @@ describe Package do
     end
   end
 
-  # describe '#link' do
-  #   it 'returns a url to the package with the unencrypted token in params' do
-  #     @token = 'foobars'
-  #     @package = FactoryGirl.create(:package)
-  #     @package.link(@token).should eq link_to({ token: @token })
-  #   end
-  # end
+  describe '#hours_left' do
+    it 'returns how many hours the package will remain available' do
+      @package = FactoryGirl.create(:package)
+      @package.hours_left.should eq 72
+    end
+  end
 end
