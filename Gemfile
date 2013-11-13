@@ -30,7 +30,6 @@ end
 group :test do
   gem 'mail'
   gem 'capybara'
-  # gem 'capybara-email'
   gem 'factory_girl_rails'
   gem 'shoulda-matchers'
   gem 'poltergeist'

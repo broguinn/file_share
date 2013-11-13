@@ -11,14 +11,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131112222052) do
+ActiveRecord::Schema.define(version: 20131113231338) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "attachments", force: true do |t|
-    t.string   "file_name"
-    t.string   "file_type"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "package_id"
@@ -37,20 +35,6 @@ ActiveRecord::Schema.define(version: 20131112222052) do
     t.string   "user_name"
     t.string   "recipient_email"
     t.string   "encrypted_token"
-  end
-
-  create_table "recipients", force: true do |t|
-    t.string   "email"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "package_id"
-  end
-
-  create_table "senders", force: true do |t|
-    t.string   "email"
-    t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
   end
 
 end
