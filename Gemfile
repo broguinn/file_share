@@ -16,6 +16,10 @@ group :doc do
   gem 'sdoc', require: false
 end
 
+group :production do
+  gem 'rails_12factor'
+end
+
 group :test, :development do
   gem 'rspec-rails'
   gem 'pry'
@@ -28,7 +32,6 @@ group :development do
 end
 
 group :test do
-  gem 'mail'
   gem 'capybara'
   gem 'factory_girl_rails'
   gem 'shoulda-matchers'
