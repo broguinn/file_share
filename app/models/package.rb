@@ -12,7 +12,6 @@ class Package < ActiveRecord::Base
   validates :recipient_email, 
             presence: true,
             format: { with: VALID_EMAIL_REGEX }
-  # validates :encrypted_token, presence: true
 
   accepts_nested_attributes_for :attachments,
                                 reject_if: :all_blank,
@@ -27,6 +26,6 @@ private
   def set_encrypted_token
     cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST : BCrypt::Engine.cost
     @token = SecureRandom.base64
-    encrypted_token = BCrypt::Password.create(@token)
+    self.encrypted_token = BCrypt::Password.create(@token)
   end
 end

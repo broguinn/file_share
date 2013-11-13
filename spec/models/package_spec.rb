@@ -3,7 +3,6 @@ require 'spec_helper'
 describe Package do
   it { should have_many :attachments }
   it { should validate_presence_of :message }
-  # it { should validate_presence_of :encrypted_token }
   it { should validate_presence_of :recipient_email }
   it { should validate_presence_of :user_email }
 
