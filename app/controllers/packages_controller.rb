@@ -6,7 +6,7 @@ class PackagesController < ApplicationController
   def create
     @package = Package.new(package_params)
     if @package.save
-      flash[:notice] = 'Files Sent!'
+      flash[:notice] = 'Files Sent! Check your email for the share code'
       redirect_to root_path
     else
       render 'new'

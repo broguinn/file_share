@@ -29,10 +29,10 @@ end
 
 group :test do
   gem 'capybara'
+  gem 'capybara-email'
   gem 'factory_girl_rails'
   gem 'shoulda-matchers'
   gem 'poltergeist'
   gem 'launchy'
-
   gem 'database_cleaner'
 end
