@@ -4,20 +4,22 @@ class PackagesController < ApplicationController
   end
 
   def create
-    @package = Package.create(package_params)
-    flash[:notice] = 'Files Sent!'
-    redirect_to root_path
+    @package = Package.new(package_params)
+    if @package.save
+      flash[:notice] = 'Files Sent!'
+      redirect_to root_path
+    else
+      render 'new'
+    end
   end
 
 private
 
   def package_params
     params.require(:package).permit(:message,
-                                    :encrypted_token,
                                     :user_email,
                                     :user_name,
-                                    :sender_attributes,
-                                    recipient_attributes: [:email],
-                                    attachment_attributes: [:file])
+                                    :recipient_email,
+                                    attachments_attributes: [:file, :_destroy])
   end
 end

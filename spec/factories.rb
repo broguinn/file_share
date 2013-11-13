@@ -1,13 +1,14 @@
 include ActionDispatch::TestProcess
 
+@token = SecureRandom.base64
+
 FactoryGirl.define do
   factory :package do
     message 'Here\'s the blog picture and content.'
-  end
-
-  factory :sender do
-    name 'John Doe'
-    email 'jd@example.com'
+    user_name 'John Doe'
+    user_email 'jd@example.com'
+    recipient_email "recipient@example.com"
+    encrypted_token BCrypt::Password.create(@token)
   end
 
   factory :attachment do
@@ -18,9 +19,5 @@ FactoryGirl.define do
     factory :txt_attachment do
       file { fixture_file_upload(Rails.root.join('spec', 'texts', 'test.rtf'), 'text/rtf') }
     end
-  end
-
-  factory :recipient do
-    sequence(:email) { |n| "recipient#{n}@example.com" } 
   end
 end

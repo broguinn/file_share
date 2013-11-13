@@ -33,9 +33,10 @@ ActiveRecord::Schema.define(version: 20131112222052) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "sender_id"
-    t.string   "encrypted_token"
     t.string   "user_email"
     t.string   "user_name"
+    t.string   "recipient_email"
+    t.string   "encrypted_token"
   end
 
   create_table "recipients", force: true do |t|

@@ -1,15 +1,21 @@
 require 'spec_helper'
 
 describe Package do
-  it { should belong_to :sender }
-  it { should have_many :recipients }
   it { should have_many :attachments }
-
   it { should validate_presence_of :message }
-  it { should validate_presence_of :recipients }
-  it { should validate_presence_of :encrypted_token }
+  # it { should validate_presence_of :encrypted_token }
+  it { should validate_presence_of :recipient_email }
+  it { should validate_presence_of :user_email }
 
-  it { should accept_nested_attributes_for :sender}
-  it { should accept_nested_attributes_for :recipients}
-  it { should accept_nested_attributes_for :attachments}
+  it { should accept_nested_attributes_for :attachments }
+  it { should respond_to :authenticate }
+
+  describe '#authenticate' do
+    it 'returns true if the remember token passed in matches the encrypted token in the DB' do
+      @token = 'foobars'
+      @package = FactoryGirl.build(:package)
+      @package.encrypted_token = BCrypt::Password.create(@token)
+      @package.authenticate(@token).should be_true
+    end
+  end
 end

@@ -1,15 +1,32 @@
 class Package < ActiveRecord::Base
-  belongs_to :sender
-  has_many :recipients
   has_many :attachments
 
-  validates :message, presence: true
-  validates :recipients, presence: true
-  validates :encrypted_token, presence: true
+  before_create :set_encrypted_token
 
-  accepts_nested_attributes_for :sender
-  accepts_nested_attributes_for :recipients
+  VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
+
+  validates :message, presence: true
+  validates :user_email, 
+            presence: true,
+            format: { with: VALID_EMAIL_REGEX }
+  validates :recipient_email, 
+            presence: true,
+            format: { with: VALID_EMAIL_REGEX }
+  # validates :encrypted_token, presence: true
+
   accepts_nested_attributes_for :attachments,
-                                reject_if: lambda { |a| a[:file].blank? },
-                                :allow_destroy => true
+                                reject_if: :all_blank,
+                                allow_destroy: true
+
+  def authenticate(token)
+    BCrypt::Password.new(encrypted_token) == token
+  end
+
+private
+
+  def set_encrypted_token
+    cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST : BCrypt::Engine.cost
+    @token = SecureRandom.base64
+    encrypted_token = BCrypt::Password.create(@token)
+  end
 end

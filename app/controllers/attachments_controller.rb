@@ -1,6 +1,8 @@
 class AttachmentsController < ApplicationController
   def create
+    binding.pry
     @attachment = Attachment.create(attachment_params)
+    render :nothing
   end
 
 private

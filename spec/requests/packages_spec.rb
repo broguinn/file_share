@@ -1,25 +1,30 @@
 require 'spec_helper'
 
-feature 'New Package' do
+describe 'New Package' do
   before do
-    @sender = FactoryGirl.build(:sender)
     @package = FactoryGirl.build(:package)
     @attachment = FactoryGirl.build(:img_attachment)
-    @recipient = FactoryGirl.build(:recipient)
     visit root_path
     click_link 'Yes'
+    fill_in 'Name', with: @package.user_name
+    fill_in 'Email', with: @package.user_email
+    fill_in 'Message', with: @package.message
+    fill_in 'Recipient Email', with: @package.recipient_email
   end
 
-  scenario 'a user successfully creates a package with a file and recipient', js: true do
-    fill_in 'Name', with: @sender.name
-    fill_in 'Email', with: @sender.email
-    fill_in 'Message', with: @package.message
-    click_link 'Add a recipient'
-    fill_in 'Recipient Email', with: @recipient.email
+  it 'the user receives a flash notice that their files were sent', js: true do
     click_link 'Add an attachment'
     attach_file('Attach File', File.join(Rails.root, '/spec/photos/test.png'))
     click_button 'submit'
-    save_and_open_page
     page.should have_content 'Files Sent!'
+  end
+
+  it 'the user is redirected to the package show page', js: true do
+    click_link 'Add an attachment'
+    attach_file('Attach File', File.join(Rails.root, '/spec/photos/test.png'))
+    click_button 'submit'
+    page.should have_content @package.message
+    page.should have_content @package.user_name
+    page.should have_content 'test.png'
   end
 end
