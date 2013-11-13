@@ -48,8 +48,18 @@ describe 'Package View' do
     end
   end
 
-  it 'provides a link for each attachment' do
-    visit package_path(@package, token: @token)
+  it 'provides a link to view each attachment' do
     @package.attachments.each do |attachment|
+      visit package_path(@package, token: @token)
+      click_link attachment.file_file_name
+      page.response_headers['Content-Type'].should eq attachment.file_content_type
+    end
+  end
+
+  it 'it restricts access to files based on the token' do
+    @package.attachments.each do |attachment|
+      visit attachment_path(attachment)
+      page.should have_content 'You don\'t have permission to view those files!'
+    end
   end
 end

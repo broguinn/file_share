@@ -9,7 +9,7 @@ FactoryGirl.define do
     end
 
     factory :txt_attachment do
-      file { fixture_file_upload(Rails.root.join('spec', 'texts', 'test.rtf'), 'text/rtf') }
+      file { fixture_file_upload(Rails.root.join('spec', 'texts', 'test.rtf'), 'application/rtf') }
     end
   end
 

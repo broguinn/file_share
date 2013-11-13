@@ -1,7 +1,7 @@
 class AttachmentsController < ApplicationController
-  def create
-    @attachment = Attachment.create(attachment_params)
-    render :nothing
+  def show
+    @attachment = Attachment.find(params[:id])
+    send_data @attachment.file.url, type: @attachment.file_content_type
   end
 
 private
