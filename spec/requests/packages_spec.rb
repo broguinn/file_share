@@ -2,6 +2,10 @@
 
 describe 'New Package' do
   before do
+    ActionMailer::Base.deliveries.clear
+    ActionMailer::Base.delivery_method = :test
+    ActionMailer::Base.perform_deliveries = true
+    ActionMailer::Base.deliveries = []
     @package = FactoryGirl.build(:package)
     visit root_path
     click_link 'Yes'
@@ -22,11 +26,26 @@ describe 'New Package' do
     click_button 'submit'
     page.should_not have_content 'Files Sent!'
   end
+
+  it 'sends an email', js: true do
+    click_link 'Add an attachment'
+    attach_file('Attach File', File.join(Rails.root, '/spec/photos/test.png'))
+    click_button 'submit'
+    ActionMailer::Base.deliveries.count.should eq 1
+  end
+
+  after do
+    ActionMailer::Base.deliveries.clear
+  end
 end
 
 describe 'Package View' do
   before do
     include ActionView::Helpers
+    ActionMailer::Base.deliveries.clear
+    ActionMailer::Base.delivery_method = :test
+    ActionMailer::Base.perform_deliveries = true
+    ActionMailer::Base.deliveries = []
     @package = FactoryGirl.create(:package)
     @token = SecureRandom.base64
     @package.encrypted_token = BCrypt::Password.create(@token)
@@ -54,6 +73,12 @@ describe 'Package View' do
       click_link attachment.file_file_name
       page.response_headers['Content-Type'].should eq attachment.file_content_type
     end
+  end
+
+  it 'sends out an email to the owner' do
+    visit package_path(@package, token: @token)
+    click_link @package.attachments.first.file_file_name
+    ActionMailer::Base.deliveries.count.should eq 2
   end
 
   it 'it restricts access to files based on the token' do

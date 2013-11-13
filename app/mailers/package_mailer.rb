@@ -9,5 +9,6 @@ class PackageMailer < ActionMailer::Base
 
   def sender_email(package)
     @package = package
+    mail(to: package.user_email, subject: 'Your Files Were Accessed')
   end
 end

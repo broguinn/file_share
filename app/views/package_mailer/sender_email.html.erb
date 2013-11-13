@@ -4,14 +4,14 @@
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
   </head>
   <body>
-    <h1>Welcome to example.com, <%= @user.name %></h1>
-    <p>
-      You have successfully signed up to example.com,
-      your username is: <%= @user.login %>.<br/>
-    </p>
-    <p>
-      To login to the site, just follow this link: <%= @url %>.
-    </p>
-    <p>Thanks for joining and have a great day!</p>
+    <h1><%= @package.user_name %> has shared a file with you.</h1>
+    
+    <div>
+      <p>
+        The recipient has downloaded some of your files.
+      </p>
+      <p>The package will be removed in <%= @package.hours_left %> hours.</p>
+    </div>
+    
   </body>
 </html>

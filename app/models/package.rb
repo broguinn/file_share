@@ -2,6 +2,7 @@ class Package < ActiveRecord::Base
   has_many :attachments
 
   before_create :set_encrypted_token
+  after_create :send_recipient_email
 
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
 
@@ -33,8 +34,11 @@ private
   end
 
   def set_encrypted_token
-    # cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST : BCrypt::Engine.cost
     @token = SecureRandom.base64
     self.encrypted_token = BCrypt::Password.create(@token)
+  end
+
+  def send_recipient_email
+    PackageMailer.recipient_email(self, @token).deliver
   end
 end
