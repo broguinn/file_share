@@ -96,5 +96,4 @@ FileShare::Application.configure do
     :domain         => 'file-share.mailgun.org',
     :authentication => :plain,
   }
-}
 end
