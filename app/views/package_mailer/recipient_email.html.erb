@@ -12,7 +12,8 @@
       </p>
     </div>
     <p>
-      <%= link_to 'You can download them here', @package, { token: @token } %>
+      <% binding.pry %>
+      <%= link_to 'You can download them here', controller: 'packages', action: 'show', :host => "fileshare.herokuapp.com", id: @package.id, token: @token %>
     </p>
     <p>These files will remain available for the next 72 hours, after which they will be deleted."</p>
   </body>
