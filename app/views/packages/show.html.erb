@@ -1,12 +1,12 @@
 <h2>Your Package</h2>
 <hr>
 
-<div class='row>'>
+<div class='row'>
   <% @package.attachments.each do |attachment| %>
     <div class='col-md-4'>
       <h5><%= link_to attachment.file_file_name, attachment_path(attachment, token: params[:token]) %></h5>
       <hr>
-      <p>size: <%= attachment.file_file_size %></p>
+      <p>size: <%= attachment.file_file_size %> bytes</p>
       <p>type: <%= attachment.file_content_type %></p>
     </div>
   <% end %>
