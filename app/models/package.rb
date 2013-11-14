@@ -1,5 +1,5 @@
 class Package < ActiveRecord::Base
-  has_many :attachments
+  has_many :attachments, dependent: :destroy
 
   before_create :set_encrypted_token
   after_create :send_recipient_email
@@ -7,10 +7,10 @@ class Package < ActiveRecord::Base
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
 
   validates :message, presence: true
-  validates :user_email, 
+  validates :user_email,
             presence: true,
             format: { with: VALID_EMAIL_REGEX }
-  validates :recipient_email, 
+  validates :recipient_email,
             presence: true,
             format: { with: VALID_EMAIL_REGEX }
   validate :validate_attachments

@@ -24,4 +24,10 @@ describe Package do
       @package.hours_left.should eq 72
     end
   end
+
+  it 'dependently destroies attachments' do
+    @package = FactoryGirl.create(:package)
+    @package.destroy
+    Attachment.all.count.should be 0
+  end
 end

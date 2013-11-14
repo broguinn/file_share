@@ -11,6 +11,7 @@ gem 'paperclip', '~> 3.0'
 gem 'aws-sdk'
 gem 'cocoon'
 gem 'bcrypt-ruby', '~> 3.0.0', require: 'bcrypt'
+gem 'therubyracer', require: 'v8'
 
 group :doc do
   gem 'sdoc', require: false
