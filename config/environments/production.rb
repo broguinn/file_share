@@ -86,6 +86,7 @@ FileShare::Application.configure do
       :secret_access_key => ENV['AWS_SECRET_ACCESS_KEY']
   }
 
+  config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
     :port           => ENV['MAILGUN_SMTP_PORT'],
     :address        => ENV['MAILGUN_SMTP_SERVER'],
@@ -94,6 +95,5 @@ FileShare::Application.configure do
     :domain         => 'file-share.mailgun.org',
     :authentication => :plain,
   }
-  config.action_mailer.delivery_method = :smtp
 }
 end
