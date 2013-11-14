@@ -1,5 +1,5 @@
 class PackageMailer < ActionMailer::Base
-  default from: "from@example.com"
+  default from: "fileshare@example.com"
 
   def recipient_email(package, token)
     @package = package
